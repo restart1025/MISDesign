@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.multipart.saveDir" value="/tmp"></constant>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />
+	<package name="person" namespace="/person" extends="lygl-struts" strict-method-invocation="false">
+		<action name="person_*"  class="cn.lygl.action.PersonAction" method="{1}">
+			<!-- 配置类型的json的Result -->
+			<result type="json">
+				<!-- 为该Result指定参数 -->
+				<param name="noCache">true</param>
+				<param name="contentType">text/html</param>
+				<param name="root">pag</param>
+			</result>
+		</action>	
+	</package>
+</struts>

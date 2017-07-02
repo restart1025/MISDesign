@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+	"http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />  
+	<package name="lygl-struts" namespace="/" extends="json-default" strict-method-invocation="false">		
+
+		<!-- 配置Action的默认处理类 -->
+		<default-class-ref class="cn.lygl.action.DefaultAction"/>
+		<!-- 定义全局Result -->
+		<global-results>
+			<!-- 当返回login视图名时，转入登录页面login.jsp -->
+			<result name="login">/WEB-INF/view/login/index.jsp</result>
+			<result name="error">/WEB-INF/view/error.jsp</result>
+			<result name="mpwd">/WEB-INF/view/base/modifypwd.jsp</result>
+		</global-results>
+	</package>
+	<!-- 人员相关 -->
+	<include file="struts-config/struts-person.xml"></include>
+	
+	<package name="lygl" namespace="/" extends="lygl-struts" strict-method-invocation="false">
+		<action name="chinaDate" class="cn.lygl.util.ChinaDateAction">
+			<!-- 配置类型的json的Result -->
+			<result type="json">
+				<!-- 为该Result指定参数 -->
+				<param name="noCache">true</param>
+				<param name="contentType">text/html</param>
+				<!-- 设置只序列Action的map属性 -->
+				<param name="root">today</param>
+			</result>
+		</action>
+		<action name="exitAction_exit" class="cn.lygl.action.PersonAction" method="exit">
+				<result>/WEB-INF/view/index.jsp</result>
+		</action>
+        <action name="*">
+			<result>/WEB-INF/view/{1}.jsp</result>			
+		</action>			
+	</package>
+</struts>
